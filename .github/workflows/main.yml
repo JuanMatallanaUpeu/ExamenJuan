@@ -10,7 +10,7 @@ env:
   APP_CONTAINER_NAME: product_app_2025
   SONAR_PROJECT_KEY: product-app
   SONAR_HOST_URL: http://localhost:9000
-  SONAR_TOKEN: squ_81953b828f2e31bea2224831d9c021d43af143f2
+  SONAR_TOKEN: squ_c00666c50d1fd812e124db0240dce1662da8bb16
 
 jobs:
   build_analyze_deploy:
@@ -32,23 +32,16 @@ jobs:
 
       - name: 📊 Análisis con SonarQube
         run: |
-          echo "⏳ Esperando que SonarQube esté disponible..."
-          until curl -sSf ${{ env.SONAR_HOST_URL }} > /dev/null; do
-            echo "❗ SonarQube no está disponible aún. Reintentando..."
-            sleep 5
-          done
-
-          echo "✅ SonarQube disponible. Ejecutando análisis..."
-          mvn verify sonar:sonar \
+          mvn sonar:sonar \
             -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }} \
             -Dsonar.host.url=${{ env.SONAR_HOST_URL }} \
             -Dsonar.login=${{ env.SONAR_TOKEN }}
 
       - name: 🚀 Despliegue con Docker Compose
         run: |
-          echo "🔧 Desplegando aplicación con Docker..."
+          echo "🔧 Desplegando aplicación..."
           cd docker
           docker-compose -p $DOCKER_PROJECT_NAME down -v --remove-orphans || true
           docker-compose -p $DOCKER_PROJECT_NAME up -d --build
-          echo "📋 Logs recientes del contenedor:"
+          echo "📋 Logs recientes:"
           docker logs --tail 50 $APP_CONTAINER_NAME
