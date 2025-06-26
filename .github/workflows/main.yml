@@ -10,7 +10,7 @@ env:
   APP_CONTAINER_NAME: product_app_2025
   SONAR_PROJECT_KEY: product-app
   SONAR_HOST_URL: http://localhost:9000
-  SONAR_TOKEN: squ_537f6f52b2583da012e206354d40ad6f3ece2495
+  SONAR_TOKEN: squ_2b54e5db054320f48c30ae60464d5d35d41c5326
 
 jobs:
   build_analyze_deploy:
@@ -43,5 +43,5 @@ jobs:
           cd docker
           docker-compose -p $DOCKER_PROJECT_NAME down -v --remove-orphans || true
           docker-compose -p $DOCKER_PROJECT_NAME up -d --build
-          echo "📋 Logs recientes del contenedor:"
-          docker logs --tail 50 $APP_CONTAINER_NAME || true
+          echo "📋 Logs recientes:"
+          docker logs --tail 50 $APP_CONTAINER_NAME
