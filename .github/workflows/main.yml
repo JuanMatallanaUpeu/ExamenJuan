@@ -29,7 +29,7 @@ jobs:
 
       - name: 📊 Paso 4 - Análisis con SonarQube
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: squ_2c5642a741aab0fc584ea95485671de24f90d780
         run: |
           echo "🔍 Ejecutando análisis SonarQube..."
           mvn sonar:sonar \
