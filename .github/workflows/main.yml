@@ -43,5 +43,5 @@ jobs:
           cd docker
           docker-compose -p $DOCKER_PROJECT_NAME down -v --remove-orphans || true
           docker-compose -p $DOCKER_PROJECT_NAME up -d --build
-          echo "📋 Logs recientes:"
-          docker logs --tail 50 $APP_CONTAINER_NAME
+          echo "📋 Logs recientes del contenedor:"
+          docker logs --tail 50 $APP_CONTAINER_NAME || true
